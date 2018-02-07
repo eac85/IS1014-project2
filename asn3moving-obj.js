@@ -118,7 +118,7 @@ function initializeProgram() {
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
 var x = -2, y = -1.5, z = -60.0;	// the starting XYZ position
-var deltax = 0.03, deltay = 0.09, deltaz = .5; // velocity as deltaXYZ/step
+var deltax = 0.05, deltay = 0.01, deltaz = .5; // velocity as deltaXYZ/step
 var rotX = -1, rotY = 1, rotZ = 1;	// the starting rotational orientation
 var rotDeg = 0;
 var vertSize = 3, numVertices = 6;
