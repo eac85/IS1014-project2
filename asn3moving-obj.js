@@ -117,8 +117,8 @@ function initializeProgram() {
 
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
-var x = -2, y = -1.5, z = -15.0;	// the starting XYZ position
-var deltax = 0.03, deltay = 0.09, deltaz = 0.3; // velocity as deltaXYZ/step
+var x = -2, y = -1.5, z = -60.0;	// the starting XYZ position
+var deltax = 0.03, deltay = 0.09, deltaz = .5; // velocity as deltaXYZ/step
 var rotX = -1, rotY = 1, rotZ = 1;	// the starting rotational orientation
 var rotDeg = 0;
 var vertSize = 3, numVertices = 6;
@@ -129,13 +129,13 @@ var ndraw = 0;
 // Also, consider keeping your object pointed in its direction of motion.
 function draw() {
      ndraw++;		// not really needed but illustrates a discussion point
-     x += deltax;	// to get position we are "integrating" velocity
+     x -= deltax;	// to get position we are "integrating" velocity
      y += deltay;
      z += deltaz;
      if(z > 0) {	// reinitialize position+rotation when object passes
 	x = -2;
 	y = -1.5;
-	z = -15.0;
+	z = -60.0;
 	rotDeg = 0;
     }
     rotDeg += 20;	// .5 deg additional rotation per time step
