@@ -39,10 +39,28 @@ var verticeColorBufferObject = null;
 // XXX you should devise your own object "Model" and color it as you wish
 function initializeModels() {
     var verticeArray = new Float32Array([
-	0,0,0, -0.5,0.0,-0.5, +0.5,0.0,-0.5	// one flying triangle for now
+	0,0,0,
+    -.5, .5, -.25,
+    .5, .5, -.75,
+    .5, .5, .75,
+     -.5, .5, -.25,
+     .5, .5, -.75,
+    
+    
+    
+
+
+	// one flying triangle for now
     ]);
     var verticeColorArray = new Float32Array([
-	1,0,0,1, 0,1,0,1, 0,0,1,1		// distinct colors for now
+	0.3,0,1,1, 
+    0.3,0.4,1,1, 
+    0.3,0.5,1,1, 
+    0.3,0.6,1,1, 
+    0.3,0.7,1,1, 
+    0.3,0.8,1,1, 
+
+     	// distinct colors for now
     ]);
     verticeBufferObject = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, verticeBufferObject);
@@ -99,11 +117,11 @@ function initializeProgram() {
 
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
-var x = -1.2, y = -1.5, z = -15.0;	// the starting XYZ position
-var deltax = 0.02, deltay = 0.025, deltaz = 0.2; // velocity as deltaXYZ/step
+var x = -2, y = -1.5, z = -15.0;	// the starting XYZ position
+var deltax = 0.03, deltay = 0.09, deltaz = 0.3; // velocity as deltaXYZ/step
 var rotX = -1, rotY = 1, rotZ = 1;	// the starting rotational orientation
 var rotDeg = 0;
-var vertSize = 3, numVertices = 3;
+var vertSize = 3, numVertices = 6;
 var ndraw = 0;
 
 // XXX replace the motion parts of draw() to implement some interesting
@@ -115,12 +133,12 @@ function draw() {
      y += deltay;
      z += deltaz;
      if(z > 0) {	// reinitialize position+rotation when object passes
-	x = -1.2;
+	x = -2;
 	y = -1.5;
 	z = -15.0;
 	rotDeg = 0;
     }
-    rotDeg += .5;	// .5 deg additional rotation per time step
+    rotDeg += 20;	// .5 deg additional rotation per time step
     if(rotDeg >= 360)	// often convenient to reset large rotations to 0
 	rotDeg -= 360;
     mat4.perspective(
@@ -135,6 +153,6 @@ function draw() {
     gl.uniformMatrix4fv(program.pMatrixUniform, false, pMatrix);
     gl.uniformMatrix4fv(program.mvMatrixUniform, false, mvMatrix);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, numVertices);
     setTimeout("draw()", 50); // redraw after 50ms delay
 }
